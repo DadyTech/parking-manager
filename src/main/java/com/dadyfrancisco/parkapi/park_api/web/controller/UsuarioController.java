@@ -24,5 +24,11 @@ public class UsuarioController {
         Usuario user = service.findById(id);
         return ResponseEntity.ok(user);
     }
+    @PatchMapping("/{id}")
+    public ResponseEntity<Usuario>updateSenha(@PathVariable Long id,@RequestBody Usuario usuario){
+        Usuario user = service.EditarSenha(id,usuario.getPassword());
+        return ResponseEntity.ok(user);
+
+    }
 
 }
