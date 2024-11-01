@@ -25,9 +25,9 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id){
+    public ResponseEntity<UsuarioResponseDto> buscarPorId(@PathVariable Long id){
         Usuario user = service.findById(id);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
     @PatchMapping("/{id}")
     public ResponseEntity<Usuario>updateSenha(@PathVariable Long id,@RequestBody Usuario usuario){
@@ -35,7 +35,7 @@ public class UsuarioController {
         return ResponseEntity.ok(user);
 
     }
-
+    @GetMapping
     public ResponseEntity<List<Usuario>> getAll(){
         List<Usuario> users = service.buscarTodos();
                 return ResponseEntity.ok(users);
