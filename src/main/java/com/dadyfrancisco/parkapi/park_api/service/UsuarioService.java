@@ -25,9 +25,15 @@ public class UsuarioService {
                 .orElseThrow(()-> new RuntimeException("Usuario não encontrado"));
     }
     @Transactional
-    public Usuario EditarSenha(Long id,String password) {
+    public Usuario EditarSenha(Long id, String senhaAtual, String novaSenha, String confiramarSenha) {
+        if (!novaSenha.equals(confiramarSenha)){
+           throw  new RuntimeException("Nova senha nao confere com confirmar senha");
+        }
         Usuario user = findById(id);
-        user.setPassword(password);
+        if (!user.getPassword().equals(senhaAtual)){
+            throw new RuntimeException(" senha nao confere. ");
+        }
+        user.setPassword(novaSenha);
         return user;
     }
     @Transactional(readOnly = true)
