@@ -8,6 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class UsuarioMapper {
 
 
@@ -48,6 +51,10 @@ public class UsuarioMapper {
         String role = usuario.getRole().name().substring("ROLE_".length());
         responseDto.setRole(role);
         return responseDto;
+    }
+
+    public static List<UsuarioResponseDto> toall(List<Usuario> usuarios){
+        return usuarios.stream().map(user ->toDto(user)).collect(Collectors.toList());
     }
 
 
