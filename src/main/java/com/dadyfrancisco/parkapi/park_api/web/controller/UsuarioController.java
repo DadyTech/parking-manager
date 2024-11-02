@@ -32,7 +32,7 @@ public class UsuarioController {
         return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
     @PatchMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDto>updateSenha(@PathVariable Long id,@RequestBody UsuarioSenhaDto dto){
+    public ResponseEntity<UsuarioResponseDto>updateSenha(@Valid @PathVariable Long id,@RequestBody UsuarioSenhaDto dto){
         Usuario user = service.EditarSenha(id, dto.getSenhaAtual(),dto.getNovaSenha(),dto.getConfiramarSenha());
         return ResponseEntity.noContent().build();
 
