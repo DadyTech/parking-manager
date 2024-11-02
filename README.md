@@ -1,2 +1,3 @@
 # parking-manager
-API para gerenciamento de estacionamentos, permitindo controle de ocupação e registro de veículos
+## park-api
+Esta API permite realizar operações CRUD para gerenciar estacionamento, como cadastrar veículos, controlar vagas, e monitorar entradas e saídas de veículos.
