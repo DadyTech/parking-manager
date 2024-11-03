@@ -1,5 +1,6 @@
 package com.dadyfrancisco.parkapi.park_api.web.exception;
 
+import com.dadyfrancisco.parkapi.park_api.exception.UsernameUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,18 @@ public class ApiExeption {
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErroMessage(request,HttpStatus.UNPROCESSABLE_ENTITY,"campos invalido(s)",result));
+
+    }
+
+    @ExceptionHandler(UsernameUniqueViolationException.class)
+    public ResponseEntity<ErroMessage>MethodArgumentNotValidException(RuntimeException ex,
+                                                                      HttpServletRequest request
+                                                                      ){
+        log.error("Api Error -", ex);
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErroMessage(request,HttpStatus.CONFLICT,ex.getMessage()));
 
     }
 }

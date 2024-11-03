@@ -1,5 +1,6 @@
 package com.dadyfrancisco.parkapi.park_api.web.exception;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class ErroMessage {
     private  int status;
     private String statusText;
     private String message;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String ,String > erros;
 
     public ErroMessage() {
