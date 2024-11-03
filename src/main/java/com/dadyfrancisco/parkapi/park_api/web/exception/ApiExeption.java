@@ -1,5 +1,6 @@
 package com.dadyfrancisco.parkapi.park_api.web.exception;
 
+import com.dadyfrancisco.parkapi.park_api.exception.EntityNotFoundException;
 import com.dadyfrancisco.parkapi.park_api.exception.UsernameUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -37,6 +38,18 @@ public class ApiExeption {
                 .status(HttpStatus.CONFLICT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErroMessage(request,HttpStatus.CONFLICT,ex.getMessage()));
+
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErroMessage>EntityNotFoundException(RuntimeException ex,
+                                                                      HttpServletRequest request
+    ){
+        log.error("Api Error -", ex);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErroMessage(request,HttpStatus.NOT_FOUND,ex.getMessage()));
 
     }
 }

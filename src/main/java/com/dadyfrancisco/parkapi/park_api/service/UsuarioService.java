@@ -1,6 +1,7 @@
 package com.dadyfrancisco.parkapi.park_api.service;
 
 import com.dadyfrancisco.parkapi.park_api.entity.Usuario;
+import com.dadyfrancisco.parkapi.park_api.exception.EntityNotFoundException;
 import com.dadyfrancisco.parkapi.park_api.exception.UsernameUniqueViolationException;
 import com.dadyfrancisco.parkapi.park_api.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class UsuarioService {
     @Transactional(readOnly = true)
     public Usuario findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Usuario não encontrado"));
+                .orElseThrow(()-> new EntityNotFoundException(String.format("Usuario do id={%s} não encontrado",id)));
     }
     @Transactional
     public Usuario EditarSenha(Long id, String senhaAtual, String novaSenha, String confiramarSenha) {
