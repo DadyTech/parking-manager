@@ -61,6 +61,19 @@ public class UsuarioController {
         Usuario user = service.findById(id);
         return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
+
+    @Operation(
+            summary = "Atualizar senha",description = "Atualizar senha",
+            responses = {
+                    @ApiResponse(responseCode = "204",description = "Atualizar senha com sucesso",
+                            content = @Content(mediaType ="application/json",schema = @Schema(implementation = Void.class))),
+                    @ApiResponse(responseCode = "404",description = "Recursos nao em contrado",
+                            content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErroMessage.class))),
+                    @ApiResponse(responseCode = "400",description = "Senhas nao confere",
+                            content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErroMessage.class)))
+
+            }
+    )
     @PatchMapping("/{id}")
     public ResponseEntity<UsuarioResponseDto>updateSenha(@Valid @PathVariable Long id,@RequestBody UsuarioSenhaDto dto){
         Usuario user = service.EditarSenha(id, dto.getSenhaAtual(),dto.getNovaSenha(),dto.getConfiramarSenha());
