@@ -2,6 +2,7 @@ package com.dadyfrancisco.parkapi.park_api.service;
 
 import com.dadyfrancisco.parkapi.park_api.entity.Usuario;
 import com.dadyfrancisco.parkapi.park_api.exception.EntityNotFoundException;
+import com.dadyfrancisco.parkapi.park_api.exception.PasswordInvalidException;
 import com.dadyfrancisco.parkapi.park_api.exception.UsernameUniqueViolationException;
 import com.dadyfrancisco.parkapi.park_api.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +34,11 @@ public class UsuarioService {
     @Transactional
     public Usuario EditarSenha(Long id, String senhaAtual, String novaSenha, String confiramarSenha) {
         if (!novaSenha.equals(confiramarSenha)){
-           throw  new RuntimeException("Nova senha nao confere com confirmar senha");
+           throw  new PasswordInvalidException("Nova senha nao confere com confirmar senha");
         }
         Usuario user = findById(id);
         if (!user.getPassword().equals(senhaAtual)){
-            throw new RuntimeException(" senha nao confere. ");
+            throw new PasswordInvalidException(" senha nao confere. ");
         }
         user.setPassword(novaSenha);
         return user;
